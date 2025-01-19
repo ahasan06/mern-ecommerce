@@ -29,13 +29,13 @@ function BestSeller() {
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio, magnam eius modi vitae sapiente soluta eum laborum atque similique natus?
                 </p>
             </div>
-
+            
             <Swiper 
             modules={[Autoplay]}
             spaceBetween={30}
-            slidesPerView={1}
+            slidesPerView={2}
             loop={true}
-            autoplay={{ delay: 2000, disableOnInteraction: false }}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
             className='best-products '
             breakpoints={{
                 640: { slidesPerView: 2 },
@@ -50,7 +50,6 @@ function BestSeller() {
                 </SwiperSlide>
              ))
             }
-
             </Swiper>
 
         </div>
