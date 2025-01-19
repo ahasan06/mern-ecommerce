@@ -13,10 +13,10 @@ function ProductItem({ id, image, name, price, rating, totalsales }) {
                     <img src={image[0]} alt={name} className="w-full hover:scale-110 transition-all ease-in-out  rounded-lg" />
                     <div className='absolute   bottom-0   right-0' >
                         <div className='flex flex-col gap-2 '>
-                            <p className='bg-custom-pink w-24  text-sm  text-center text-slate-700  font-bold shadow ' >
-                                {totalsales} pcs
+                            <p className='bg-custom-pink w-24 italic  text-xs  text-center text-slate-600  font-bold shadow ' >
+                            Sold: {totalsales} pcs
                             </p>
-                            <p className='bg-custom-pink w-24 text-sm  text-slate-700   text-center font-bold rounded-br-lg '  >
+                            <p className='bg-custom-pink w-24 italic  text-xs   text-slate-600   text-center font-bold rounded-br-lg '  >
                                 Rating :  {rating}
                             </p>
                         </div>
