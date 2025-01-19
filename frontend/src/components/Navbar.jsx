@@ -90,7 +90,7 @@ function Navbar() {
         </button>
       </div>
 
-      <div className={`absolute  top-16  right-0 bottom-0 bg-slate-50  overflow-hidden transition-all ease-linear  ${mobileMenuOpen ? 'w-full' : 'w-0'} `}>
+      <div className={`absolute z-50  top-16  right-0 bottom-0 bg-slate-50  overflow-hidden transition-all ease-linear  ${mobileMenuOpen ? 'w-full' : 'w-0'} `}>
        
 
           <ul className='nav-menu  flex flex-col   px-4 py-5 text-xl   sm:hidden  gap-5  text-gray-700'>
