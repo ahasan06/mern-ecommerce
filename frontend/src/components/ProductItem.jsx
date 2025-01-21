@@ -25,14 +25,15 @@ function ProductItem({ id, image, name, price, rating, totalsales }) {
 
                     <div className='absolute bg-white  rounded-tl-xl  h-[20%] w-[60%]  bottom-0   right-0 shadow-xl'
                      >
-                        <div className='flex flex-col h-full justify-center items-center'>
-                            <p className=' w-24 italic  text-xs  text-slate-600 font-bold  ' >
+                        <div className='flex flex-col h-full justify-center items-center pl-5 pt-2 sm:pl-0 sm:pt-0 '>
+                            <p className=' w-24 italic  text-xs  text-slate-600   ' >
                                 Sold: {totalsales} pcs
                             </p>
-                            <p className=' w-24 italic  text-xs   text-slate-600  font-bold '  >
+                            <p className=' w-24 italic  text-xs   text-slate-600  '  >
                                 Rating :  {rating}
                             </p>
                         </div>
+                        
                     </div>
                 </div>
 

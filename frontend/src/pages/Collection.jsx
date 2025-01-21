@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import { IoIosArrowForward } from "react-icons/io";
-
+import { debounce } from "lodash";
 import Title from '../components/Title';
 import ProductItem from '../components/ProductItem';
 
 function Collection() {
 
-  const { products } = useContext(ShopContext)
+  const { products, search } = useContext(ShopContext)
 
   const category = ["Men", "Women", "Kids"];
   const type = ["Topwear", "Bottomwear", "Winterwear"];
@@ -19,6 +19,7 @@ function Collection() {
   // State for selected filters
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTypes, setSelectedTypes] = useState([]);
+  const [selectedSort, setSelectedSort] = useState('relevant');
 
   // Mobile filter toggle
   const [showFilterinMobileView, setShowFilterinMobileView] = useState(true)
@@ -36,60 +37,69 @@ function Collection() {
   };
   console.log("Selected cateory", selectedCategories);
 
-  // Handle Type Change
+  // Handle type selection
   const handleTypeChange = (event) => {
     const { value, checked } = event.target
     setSelectedTypes(prev =>
       checked == true ? [...prev, value] : prev.filter(cat => cat != value)
     )
   }
-  console.log("Selected cateory", selectedTypes);
-  // Handle Type  selection
+  console.log("Selected Type", selectedTypes);
+
+  // Handle sorting
+  const handleSortChange = (event) => {
+    const { value } = event.target;
+    setSelectedSort(value);
+  };
+
+  useEffect(() => {
+    const debouncedFilter = debounce(() => {
+      let filtered = [...allProducts];
+  
+      // Category filter
+      if (selectedCategories.length > 0) {
+        filtered = filtered.filter((prod) => selectedCategories.includes(prod.category));
+      }
+  
+      // Type filter
+      if (selectedTypes.length > 0) {
+        filtered = filtered.filter((prod) => selectedTypes.includes(prod.subCategory));
+      }
+  
+      // Search filter
+      if (search.trim() !== "") {
+        filtered = filtered.filter((prod) =>
+          prod.name.toLowerCase().includes(search.toLowerCase())
+        );
+      }
+  
+      // Sorting filter
+      if (selectedSort === "low-high") {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (selectedSort === "high-low") {
+        filtered.sort((a, b) => b.price - a.price);
+      }
+  
+      // If no filters are selected, reset to all products
+      if (selectedCategories.length === 0 && selectedTypes.length === 0 && search.trim() === "") {
+        setFilteredProducts(allProducts);
+      } else {
+        setFilteredProducts(filtered);
+      }
+  
+    }, 300); // Debounce delay of 300ms
+  
+    debouncedFilter();
+  
+    return () => debouncedFilter.cancel(); // Cleanup debounce on unmount
+  
+  }, [search, selectedCategories, selectedTypes, selectedSort, allProducts]);
+
+  // Fetch products initially
   useEffect(() => {
     setAllProducts(products)
     setFilteredProducts(products);
   }, [products])
-
-
-  // State for selected filters
-
-  const handleSortChange = (event) => {
-    const { value } = event.target;
-  
-    if (value === "relevant") {
-      // Reset to the default product order
-    
-      setFilteredProducts([...filteredProducts]); 
-
-    } else {
-      let sortedProducts = [...filteredProducts]; 
-  
-      if (value === "low-high") {
-        sortedProducts.sort((a, b) => a.price - b.price);
-      } else if (value === "high-low") {
-        sortedProducts.sort((a, b) => b.price - a.price);
-      }
-  
-      setFilteredProducts(sortedProducts);
-    }
-  };
-  
-
-  // filter category and type
-  useEffect(() => {
-    let filtered = allProducts
-    if (selectedCategories.length > 0) {
-      filtered = filtered.filter((prod) => selectedCategories.includes(prod.category))
-    }
-    if (selectedTypes.length > 0) {
-      filtered = filtered.filter((prod) => selectedTypes.includes(prod.subCategory))
-    }
-    setFilteredProducts(filtered)
-
-  }, [selectedCategories, selectedTypes, allProducts])
-
-  console.log("filtered prducts", filteredProducts);
-
 
 
 
@@ -133,7 +143,7 @@ function Collection() {
       </div>
       {/* Right Side */}
       <div className='flex-1'>
-        <div className='my-2  flex items-center justify-between'>
+        <div className='mb-5  sm:my-2  flex flex-col items-start gap-2  sm:flex-row sm:items-center justify-between'>
           <Title text1={'All'} text2={'Collections'} />
           <select className='border-2 border-gray-300 text-sm px-2 py-3 ' onChange={handleSortChange} >
             {
@@ -145,7 +155,7 @@ function Collection() {
         </div>
 
         <div className='grid grid-cols-2   xl:grid-cols-3 2xl:grid-cols-4  gap-8'>
-          {filteredProducts.map((item, index) => (
+          {filteredProducts?.map((item, index) => (
             <ProductItem key={index} id={item.id} image={item.image} name={item.name} price={item.price} rating={item.rating} totalsales={item.totalsales} bestseller={item.bestseller} />
           ))}
         </div>
