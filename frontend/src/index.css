@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -16,14 +16,40 @@
     font-family: "Prata", serif;
     font-weight: 400;
     font-style: normal;
-  }
-  
+}
+
 
 a.active hr {
     display: block;
-    background-color:rgb(250, 99, 62) !important;
+
 }
 
 a.active .nav_link {
-    color:rgb(250, 99, 62) !important;
+    color: rgb(255, 135, 105) !important;
+
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    /* Remove default appearance */
+    appearance: none;
+    border: 1px solid #686767;
+    padding: 9px;
+    position: relative;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+   
+    @apply bg-custom-pink
+   
+}
+
+input[type="checkbox"]:checked:after {
+    content: '\2714';
+    @apply absolute text-slate-700 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs 
+}
+.bg-cut {
+    mask-image: linear-gradient(to top left, transparent 30%, white 70%);
 }
