@@ -10,7 +10,8 @@ const ShopContextProvider = (props) =>{
     const delivery_fee = 10;
     const [search,setSearch] = useState('')
     const [showSearch,setShowSearch] = useState(false)
-  // Define when the search bar should be shown
+    
+    // Define when the search bar should be shown
     const searchRoute = location.pathname === "/collection";
 
 
