@@ -46,7 +46,7 @@ function BestSeller() {
             {
              bestSeller.map((item,index)=>(
                 <SwiperSlide key={index}>
-                      <ProductItem id={item.id} image={item.image} name={item.name} price={item.price} rating={item.rating} totalsales={item.totalsales} bestseller={item.bestseller} />
+                      <ProductItem id={item._id} image={item.image} name={item.name} price={item.price} rating={item.rating} totalsales={item.totalsales} bestseller={item.bestseller} />
                 </SwiperSlide>
              ))
             }

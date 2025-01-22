@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import ProductItem from './ProductItem';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCoverflow,Autoplay  } from 'swiper/modules';
+import { EffectCoverflow, Autoplay } from 'swiper/modules';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-flip';
@@ -22,15 +22,26 @@ function RelatedProduct({ category, subCategory }) {
                 relatedProduct.length > 0 ? (
 
                     <Swiper
-                        modules={[EffectCoverflow,Autoplay]}
+                        modules={[EffectCoverflow, Autoplay]}
                         effect="coverflow" // Use Flip effect
                         loop={true}
+                        grabCursor={true}
+                        centeredSlides={true}
                         autoplay={{ delay: 2000, disableOnInteraction: false }}
                         slidesPerView={3}
                         breakpoints={{
                             1024: { slidesPerView: 5 },
                         }}
-                       
+
+                        coverflowEffect={{
+                            rotate: 50, // Rotation angle
+                            stretch: 0, // Slide stretching
+                            depth: 100, // Depth between slides
+                            modifier: 1, // Effect intensity
+                            slideShadows: false, // Enable slide shadows
+                           
+                        }}
+
                         className='w-full'
                     >
                         {
