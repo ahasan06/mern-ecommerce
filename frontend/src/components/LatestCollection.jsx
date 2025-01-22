@@ -51,7 +51,7 @@ function LatestCollection() {
 
             <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 '>
               {latestProducts.map((item, index) => (
-              <ProductItem key={index} id={item.id} image={item.image} name={item.name} price={item.price} rating={item.rating} totalsales={item.totalsales} bestseller={item.bestseller} />
+                <ProductItem key={index} id={item.id} image={item.image} name={item.name} price={item.price} rating={item.rating} totalsales={item.totalsales} bestseller={item.bestseller} />
               ))}
             </div>
 
@@ -71,9 +71,9 @@ function LatestCollection() {
               className='latest-products '
             >
 
-              {latestProducts.map((item) => (
-                <SwiperSlide key={item.id}>
-               <ProductItem id={item.id} image={item.image} name={item.name} price={item.price} rating={item.rating} totalsales={item.totalsales} bestseller={item.bestseller} />
+              {latestProducts.map((item ,index) => (
+                <SwiperSlide key={index}>
+                  <ProductItem id={item._id} image={item.image} name={item.name} price={item.price} rating={item.rating} totalsales={item.totalsales} bestseller={item.bestseller} />
                 </SwiperSlide>
               ))}
             </Swiper>

@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext'
 import { assets } from '../assets/assets'
+import RelatedProduct from '../components/RelatedProduct'
+import Title from '../components/Title'
 
 function Product() {
   const { products, currency } = useContext(ShopContext)
   const { productId } = useParams()
   const [productData, setProductData] = useState(false);
-  const [size ,setSize] = useState('')
+  const [size, setSize] = useState('')
   const [image, setImage] = useState('')
 
 
@@ -19,7 +21,6 @@ function Product() {
       }
     });
   };
-
 
   useEffect(() => {
     fetchProduct()
@@ -74,8 +75,8 @@ function Product() {
             <h4 className='text-slate-600 font-medium'>Select Size</h4>
             <div className='flex gap-2'>
               {
-                productData.sizes.map((size, index) => (
-                  <button key={index} className={`bg-slate-50  text-slate-600   px-6 py-3 `} >{size}</button>
+                productData.sizes.map((s, index) => (
+                  <button onClick={() => setSize(s)} key={index} className={`bg-slate-100  text-slate-600   px-6 py-3  border-2 ${s == size ? ' border-custom-pink' : 'border-transparent'} `} >{s}</button>
                 ))
               }
             </div>
@@ -86,7 +87,7 @@ function Product() {
             </button>
           </div>
 
-          <ul className='flex flex-col items-start gap-1 text-slate-600 border-t pt-5 text-xs '>
+          <ul className='flex flex-col items-start gap-1 text-slate-600 border-t pt-5 text-xs w-full '>
             <li>100% Original product.</li>
             <li>Cash on delivery is available on this product.</li>
             <li>Easy return and exchange policy within 7 days</li>
@@ -95,6 +96,23 @@ function Product() {
         </div>
       </div>
 
+      {/* Product description and reviews */}
+      <div className='mt-10'>
+        <div className='flex'>
+          <h4 className='px-4 py-2 border font-medium '>Description</h4>
+          <h4 className='px-4 py-2 border'>Reviews (122)</h4>
+        </div>
+        <div className='border p-6'>
+          <p className='text-slate-600 text-sm '>An e-commerce website is an online platform that facilitates the buying and selling of products or services over the internet. It serves as a virtual marketplace where businesses and individuals can showcase their products, interact with customers, and conduct transactions without the need for a physical presence. E-commerce websites have gained immense popularity due to their convenience, accessibility, and the global reach they offer.
+            E-commerce websites typically display products or services along with detailed descriptions, images, prices, and any available variations (e.g., sizes, colors). Each product usually has its own dedicated page with relevant information.</p>
+        </div>
+      </div>
+
+      {/* Related Products */}
+      <div className='mt-16 flex flex-col gap-5 '>
+            <Title text1={'Related'} text2={'Products'} />
+            <RelatedProduct category={productData.category} subCategory={productData.subCategory} />
+      </div>
     </div>
   ) : <div className='opacity-0'></div>
 }
