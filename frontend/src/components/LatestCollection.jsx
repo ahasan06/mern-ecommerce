@@ -37,10 +37,10 @@ function LatestCollection() {
       {/* Swiper for Latest Products */}
       <div className='flex justify-end '>
         <button onClick={toggleGridViewHandler}
-          className=" py-2  capitalize  text-slate-600  hover:text-slate-400 font-bold  transition"
+          className=" py-2    text-slate-600  hover:text-slate-400  transition"
         >
           {
-            isGridView ? "Minimize" : "See All"
+            isGridView ? "minimize" : "see all"
           }
 
         </button>

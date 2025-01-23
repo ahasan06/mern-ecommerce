@@ -1,9 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { nanoid } from 'nanoid';
 import { useParams } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext'
 import { assets } from '../assets/assets'
 import RelatedProduct from '../components/RelatedProduct'
 import Title from '../components/Title'
+import { toast } from 'react-toastify'
+import { useSelector, useDispatch } from 'react-redux'
+import { addToCart } from '../features/cart/CartSlice'
 
 function Product() {
   const { products, currency } = useContext(ShopContext)
@@ -12,6 +16,23 @@ function Product() {
   const [size, setSize] = useState('')
   const [image, setImage] = useState('')
 
+  const dispatch = useDispatch();
+  const totalCart = useSelector((state) => state.cart.totalCart)
+  console.log("Cart content:", totalCart);
+  const handleAddCart = () => {
+    if (!size) {
+      toast.error("Please select a size ");
+      return;
+    }
+    const cartItem = {
+      ...productData,
+      id: `${productData._id}-${size}-${nanoid(6)}`,
+      selectedSize: size,
+      quantity: 1,
+    }
+    dispatch(addToCart(cartItem))
+    toast.success("Product added to cart successfully!");
+  }
 
   const fetchProduct = async () => {
     products.forEach((item) => {
@@ -82,7 +103,11 @@ function Product() {
             </div>
 
 
-            <button className='bg-black text-white px-6 py-3 hover:bg-slate-900'>
+            <button
+              className={`bg-black text-white px-6 py-3 hover:bg-slate-900`}
+              // disabled={!size}
+              onClick={handleAddCart}
+            >
               Add to cart
             </button>
           </div>
@@ -110,8 +135,8 @@ function Product() {
 
       {/* Related Products */}
       <div className='mt-16 flex flex-col gap-5 '>
-            <Title text1={'Related'} text2={'Products'} />
-            <RelatedProduct category={productData.category} subCategory={productData.subCategory} />
+        <Title text1={'Related'} text2={'Products'} />
+        <RelatedProduct category={productData.category} subCategory={productData.subCategory} />
       </div>
     </div>
   ) : <div className='opacity-0'></div>

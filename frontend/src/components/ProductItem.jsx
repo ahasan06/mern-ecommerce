@@ -38,7 +38,7 @@ function ProductItem({ id, image, name, price, rating, totalsales }) {
                 </div>
 
                 <div className='mt-2'>
-                    <p className='text-sm lg:text-lg  font-semibold'>{name}</p>
+                    <p className='text-sm lg:text-lg '>{name}</p>
                     <p className='text-sm text-gray-600'>{currency}{price}</p>
                 </div>
 

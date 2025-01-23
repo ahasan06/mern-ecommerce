@@ -4,11 +4,14 @@ import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { GiCrossMark } from "react-icons/gi";
 import { ShopContext } from '../context/ShopContext';
+import { useSelector } from 'react-redux';
 function Navbar() {
   const { search, setSearch, showSearch, setShowSearch } = useContext(ShopContext)
   const [subMenuOpen, setSubMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  const totalCart  = useSelector((state) => state.cart.totalCart)
+  
   const toggleShowSearchbar = () => {
     setShowSearch(prev => !prev)
   }
@@ -77,7 +80,7 @@ function Navbar() {
         <div className='cart'>
           <Link to='/cart' className='relative'>
             <img src={assets.cart_icon} alt="cart" className='w-5' />
-            <p className='absolute left-1/2 top-1/2 bg-black rounded-full flex items-center justify-center  w-5 h-5 text-white'>0</p>
+            <p className='absolute left-1/2 top-1/2 bg-black rounded-full flex items-center justify-center  w-5 h-5 text-white'>{totalCart.length}</p>
           </Link>
         </div>
 
