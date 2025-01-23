@@ -21,7 +21,7 @@ function CartItem({ prod }) {
 
   const handleRemove = () => {
     dispatch(removeFromCart(prod))
-    toast.success("remove from successfully!")
+    toast.success("remove from cart  successfully!")
   }
 
   return (

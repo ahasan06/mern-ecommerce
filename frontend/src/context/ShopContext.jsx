@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import { products } from "../assets/assets";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const ShopContext = createContext();
 
@@ -10,6 +10,7 @@ const ShopContextProvider = (props) => {
     const delivery_fee = 10;
     const [search, setSearch] = useState('')
     const [showSearch, setShowSearch] = useState(false)
+    const navigate  = useNavigate()
 
     // Define when the search bar should be shown
     const searchRoute = location.pathname === "/collection";
@@ -17,7 +18,7 @@ const ShopContextProvider = (props) => {
 
     const value = {
         products, currency, delivery_fee,
-        search, setSearch, showSearch, setShowSearch, searchRoute
+        search, setSearch, showSearch, setShowSearch, searchRoute,navigate,
     }
 
     return (
