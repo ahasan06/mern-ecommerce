@@ -3,10 +3,12 @@ import Title from '../components/Title'
 import CartTotal from '../components/CartTotal'
 import { assets } from '../assets/assets'
 import { ShopContext } from '../context/ShopContext'
-
+import { useDispatch } from 'react-redux'
+import { placeOrder } from '../features/cart/CartSlice'
 function PlaceOrder() {
    const { navigate } = useContext(ShopContext)
-  const initalState = {
+  const dispatch = useDispatch()
+   const initalState = {
     firstName: '',
     lastName: '',
     email: '',
@@ -31,7 +33,8 @@ function PlaceOrder() {
   }
   const handleSubmit = () => {
     console.log('Order Details:', formData);
-    // Add your logic for form submission here (e.g., API call)
+    dispatch(placeOrder(formData));
+    navigate('/orders'); 
   };
 
   return (
@@ -45,26 +48,26 @@ function PlaceOrder() {
           <form className='information-cart flex flex-col gap-2 '>
             <div className='grid grid-cols-2 gap-2'>
               <input type="text" placeholder='First name'
-                name='firstname'
-                value={formData.value}
+                name='firstName'
+                value={formData.firstName}
                 onChange={handleInputChange}
                 className='outline-none border px-2 py-1 rounded text-slate-600' />
               <input type="text" placeholder='Last  name'
-                name='lastname'
-                value={formData.value}
+                name='lastName'
+                value={formData.lastName}
                 onChange={handleInputChange}
 
                 className='outline-none border px-2 py-1 rounded text-slate-600' />
             </div>
             <input type="email" placeholder='Email address'
               name='email'
-              value={formData.value}
+              value={formData.email}
               onChange={handleInputChange}
 
               className='outline-none border px-2 py-1 rounded text-slate-600' />
             <input type="text" placeholder='Street'
               name='street'
-              value={formData.value}
+              value={formData.street}
               onChange={handleInputChange}
 
               className='outline-none border px-2 py-1 rounded text-slate-600' />
@@ -72,26 +75,26 @@ function PlaceOrder() {
             <div className='grid grid-cols-2 gap-2'>
               <input type="text" placeholder='City'
                 name='city'
-                value={formData.value}
+                value={formData.city}
                 onChange={handleInputChange}
 
                 className='outline-none border px-2 py-1 rounded text-slate-600' />
               <input type="text" placeholder='State'
                 name='state'
-                value={formData.value}
+                value={formData.state}
                 onChange={handleInputChange}
 
                 className='outline-none border px-2 py-1 rounded text-slate-600' />
 
               <input type="number" placeholder='Zipcode'
                 name='zipcode'
-                value={formData.value}
+                value={formData.zipcode}
                 onChange={handleInputChange}
 
                 className='outline-none border px-2 py-1 rounded text-slate-600' />
               <input type="text" placeholder='Country'
                 name='country'
-                value={formData.value}
+                value={formData.country}
                 onChange={handleInputChange}
 
                 className='outline-none border px-2 py-1 rounded text-slate-600' />
@@ -99,7 +102,7 @@ function PlaceOrder() {
 
             <input type="number" placeholder='Phone'
               name='phone'
-              value={formData.value}
+              value={formData.phone}
               onChange={handleInputChange}
 
               className='outline-none border px-2 py-1 rounded text-slate-600' />
@@ -148,8 +151,8 @@ function PlaceOrder() {
           </div>
 
           <div className='mt-5  flex items-center'>
-            <button onClick={()=> navigate('/orders')} className='border px-8 py-2 bg-black hover:bg-slate-900 text-slate-50'>Place order</button>
-          </div>
+            <button onClick={handleSubmit} className='border px-8 py-2 bg-black hover:bg-slate-900 text-slate-50'>Place order</button>
+          </div> 
         </div>
 
       </div>

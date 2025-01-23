@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+import { nanoid } from 'nanoid';
 const initialState = {
     totalCart: [], // Renamed from cart to totalCart
-    total: 0
+    total: 0,
+    orderDetails: [],
 };
 
 const cartSlice = createSlice({
@@ -32,9 +33,22 @@ const cartSlice = createSlice({
             state.totalCart = []; // Clears the totalCart
             state.total = 0;
         },
+        placeOrder: (state, action) => {
+            const order = {
+                id:nanoid(),
+                date:Date.now().toLocaleString(),
+                items: [...state.totalCart],
+                total:state.total,
+                customerDetails : action.payload
+            }
+            state.orderDetails.push(order);
+            console.log('Order placed:',state.orderDetails);
+            state.totalCart = []; 
+            state.total = 0;
+        }
 
     },
 });
 
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart,placeOrder } = cartSlice.actions;
 export default cartSlice.reducer;
