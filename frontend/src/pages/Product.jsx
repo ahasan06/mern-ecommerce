@@ -21,19 +21,22 @@ function Product() {
   console.log("Cart content:", totalCart);
   const handleAddCart = () => {
     if (!size) {
-      toast.error("Please select a size ");
+      toast.error("Please select a size");
       return;
     }
+  
+    // Create the product object without a unique id for size matching
     const cartItem = {
       ...productData,
-      id: `${productData._id}-${size}-${nanoid(6)}`,
       selectedSize: size,
-      quantity: 1,
-    }
-    dispatch(addToCart(cartItem))
+    };
+  
+    // Dispatch the addToCart action and let it handle adding or updating
+    dispatch(addToCart(cartItem));
+  
     toast.success("Product added to cart successfully!");
-  }
-
+  };
+  
   const fetchProduct = async () => {
     products.forEach((item) => {
       if (item._id === productId) {
