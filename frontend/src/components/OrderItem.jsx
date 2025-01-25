@@ -2,13 +2,13 @@ import React, { useContext } from 'react'
 import { ShopContext } from '../context/ShopContext'
 
 function OrderItem({ items, orders }) {
-    const {currency} = useContext(ShopContext)
+    const { currency } = useContext(ShopContext)
     return (
         <div className='border-y py-4'>
             <div className='order-cart flex items-center justify-between text-xs md:text-sm'>
                 {/* left cart */}
                 <div className='flex items-center gap-2 w-1/2 text-slate-600'>
-                    <img src={items.image} alt="image" className='w-10 h-10 rounded-full md:rounded-none md:w-16 md:h-16'/>
+                    <img src={items.image} alt="image" className='w-10 h-10 rounded-full md:rounded-none md:w-16 md:h-16' />
                     <div className='flex flex-col gap-1'>
                         <h4 className='font-bold'>{items.name}</h4>
                         <div className='flex items-center  gap-4'>

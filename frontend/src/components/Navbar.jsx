@@ -9,9 +9,10 @@ function Navbar() {
   const { search, setSearch, showSearch, setShowSearch } = useContext(ShopContext)
   const [subMenuOpen, setSubMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isloggedIn, setIsLoggedIn] = useState('false')
 
-  const totalCart  = useSelector((state) => state.cart.totalCart)
-  
+  const totalCart = useSelector((state) => state.cart.totalCart)
+
   const toggleShowSearchbar = () => {
     setShowSearch(prev => !prev)
   }
@@ -54,21 +55,39 @@ function Navbar() {
 
         <div className='relative'>
           <img src={assets.profile_icon} alt="profile icon  " className='w-5 cursor-pointer' onClick={toggleSubMenuHandler} />
+
           {
             subMenuOpen && (
-              <div className='absolute  right-0 top-10'>
+              <div className='absolute  right-0 top-10 '>
                 <ul className='flex flex-col items-center gap-2 w-36 py-3 bg-slate-100 shadow rounded text-slate-600'>
-                  <NavLink to="/profile">
-                    <p>Profile</p>
-                  </NavLink>
-                  <NavLink to="/orders">
-                    <p>
-                      Orders
-                    </p>
-                  </NavLink>
-                  <NavLink to="/logout">
-                    <p>Logout</p>
-                  </NavLink>
+                  {
+                    isloggedIn === 'true' ? (
+                      <>
+                        <NavLink to="/profile">
+                          <p>Profile</p>
+                        </NavLink>
+                        <NavLink to="/orders">
+                          <p>
+                            Orders
+                          </p>
+                        </NavLink>
+                        <NavLink to="/logout">
+                          <p>Logout</p>
+                        </NavLink>
+                      </>
+                    ) :
+                      (
+                        <>
+                          <NavLink to="/signup">
+                            <p>Signup</p>
+                          </NavLink>
+                          <NavLink to="/login">
+                            <p>Login</p>
+                          </NavLink>
+                        </>
+                      )
+                  }
+
                 </ul>
               </div>
             )
