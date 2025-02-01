@@ -55,44 +55,44 @@ function Collection() {
   useEffect(() => {
     const debouncedFilter = debounce(() => {
       let filtered = [...allProducts];
-  
+
       // Category filter
       if (selectedCategories.length > 0) {
         filtered = filtered.filter((prod) => selectedCategories.includes(prod.category));
       }
-  
+
       // Type filter
       if (selectedTypes.length > 0) {
         filtered = filtered.filter((prod) => selectedTypes.includes(prod.subCategory));
       }
-  
+
       // Search filter
       if (search.trim() !== "") {
         filtered = filtered.filter((prod) =>
           prod.name.toLowerCase().includes(search.toLowerCase())
         );
       }
-  
+
       // Sorting filter
       if (selectedSort === "low-high") {
         filtered.sort((a, b) => a.price - b.price);
       } else if (selectedSort === "high-low") {
         filtered.sort((a, b) => b.price - a.price);
       }
-  
+
       // If no filters are selected, reset to all products
       if (selectedSort == 'relevant' && selectedCategories.length === 0 && selectedTypes.length === 0 && search.trim() === "") {
         setFilteredProducts(allProducts);
       } else {
         setFilteredProducts(filtered);
       }
-  
+
     }, 300); // Debounce delay of 300ms
-  
+
     debouncedFilter();
-  
+
     return () => debouncedFilter.cancel(); // Cleanup debounce on unmount
-  
+
   }, [search, selectedCategories, selectedTypes, selectedSort, allProducts]);
 
   // Fetch products initially
@@ -154,10 +154,25 @@ function Collection() {
           </select>
         </div>
 
-        <div className='grid grid-cols-2   xl:grid-cols-3 2xl:grid-cols-4  gap-8'>
-          {filteredProducts?.map((item, index) => (
-            <ProductItem key={index} id={item._id} image={item.image} name={item.name} price={item.price} rating={item.rating} totalsales={item.totalsales} bestseller={item.bestseller} />
-          ))}
+        <div className='grid grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8'>
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((item, index) => (
+              <ProductItem
+                key={index}
+                id={item._id}
+                image={item.image}
+                name={item.name}
+                price={item.price}
+                rating={item.rating}
+                totalsales={item.totalsales}
+                bestseller={item.bestseller}
+              />
+            ))
+          ) : (
+            <div className="col-span-4 row-span-12 flex justify-center items-center text-center text-gray-500 text-lg ">
+              No product found
+            </div>
+          )}
         </div>
 
       </div>

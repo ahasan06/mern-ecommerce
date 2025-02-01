@@ -6,7 +6,7 @@ import { GiCrossMark } from "react-icons/gi";
 import { ShopContext } from '../context/ShopContext';
 import { useSelector } from 'react-redux';
 function Navbar() {
-  const { search, setSearch, showSearch, setShowSearch } = useContext(ShopContext)
+  const { search, setSearch, showSearch, setShowSearch,navigate } = useContext(ShopContext)
   const [subMenuOpen, setSubMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isloggedIn, setIsLoggedIn] = useState('false')
@@ -14,6 +14,7 @@ function Navbar() {
   const totalCart = useSelector((state) => state.cart.totalCart)
 
   const toggleShowSearchbar = () => {
+    navigate('/collection')
     setShowSearch(prev => !prev)
   }
   const toggleSubMenuHandler = () => {

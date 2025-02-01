@@ -14,7 +14,7 @@ const ShopContextProvider = (props) => {
 
     // Define when the search bar should be shown
     const searchRoute = location.pathname === "/collection";
-
+    
 
     const value = {
         products, currency, delivery_fee,

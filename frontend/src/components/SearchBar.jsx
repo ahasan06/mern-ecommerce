@@ -1,15 +1,17 @@
 import React, { useContext } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import { assets } from '../assets/assets';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 
 function SearchBar() {
-    const { search, setSearch, showSearch, setShowSearch,searchRoute } = useContext(ShopContext)
+    const { search, setSearch, showSearch, setShowSearch,searchRoute, } = useContext(ShopContext)
     const searchHandler = (e) => {
         const { value } = e.target;
         setSearch(value)
     }
     const removeShowSearchHandler = () => {
+        setSearch('')
         setShowSearch(false)
     }
 
