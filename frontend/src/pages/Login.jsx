@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function Login() {
-  const [currentState ,setCurrentState] = useState('signup')
+  const [currentState , setCurrentState ] = useState('signup')
 
   return (
     <from className=" flex flex-col items-center gap-4 w-[90%] mx-auto  min-h-[60vh] justify-center sm:max-w-96 ">
