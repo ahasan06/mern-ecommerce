@@ -9,18 +9,18 @@ function CartItem({ prod }) {
   const dispatch = useDispatch()
 
   const handleIncrease = () => {
-    dispatch(addToCart(prod));
+    dispatch(addToCart({ ...prod, quantity: 1 }));
   }
   const handleDecrease = () => {
     if (prod.quantity > 1) {
-      dispatch(addToCart({ ...prod, quantity: -1 })); // Decrease quantity
+      dispatch(removeFromCart({prod ,decreaseOnly:true})); // Decrease quantity
     } else {
       dispatch(removeFromCart(prod)); // Remove item if quantity is 1
     }
   }
 
   const handleRemove = () => {
-    dispatch(removeFromCart(prod))
+    dispatch(removeFromCart({prod}))
     toast.success("remove from cart  successfully!")
   }
 
