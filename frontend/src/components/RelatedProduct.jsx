@@ -52,21 +52,6 @@ function RelatedProduct({ category, subCategory }) {
                             ))
                         }
                     </Swiper>
-
-                    // <div className='grid grid-cols-2   xl:grid-cols-3 2xl:grid-cols-4  gap-8'>
-                    //     {relatedProduct.map((item, index) => (
-                    //         <ProductItem
-                    //             key={index}
-                    //             id={item._id}
-                    //             image={item.image}
-                    //             name={item.name}
-                    //             price={item.price}
-                    //             rating={item.rating}
-                    //             totalsales={item.totalsales}
-                    //             bestseller={item.bestseller}
-                    //         />
-                    //     ))}
-                    // </div>
                 ) :
                     (
                         <div>

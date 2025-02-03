@@ -59,7 +59,7 @@ function Navbar() {
 
           {
             subMenuOpen && (
-              <div className='absolute  right-0 top-10 '>
+              <div className='absolute  right-0 top-10 z-10'>
                 <ul className='flex flex-col items-center gap-2 w-36 py-3 bg-slate-100 shadow rounded text-slate-600'>
                   {
                     isloggedIn === 'true' ? (
