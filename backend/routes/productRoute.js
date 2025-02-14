@@ -1,6 +1,7 @@
 import express from 'express'
 import { listProduct, addProduct, removeProduct, singleProduct } from '../controllers/productController.js'
 import upload from '../middleware/multer.js';
+import { adminAuth } from '../middleware/AdminAuth.js';
 
 const productRoute = express.Router()
 
@@ -17,11 +18,12 @@ const productRoute = express.Router()
 
 productRoute.post(
     '/add',
+    adminAuth,
     upload.array('images',4),
     addProduct
 )
 
-productRoute.post('/remove/:id', removeProduct);
+productRoute.post('/remove/:id', adminAuth, removeProduct);
 productRoute.post('/single/:id', singleProduct);
 productRoute.get('/list', listProduct);
 
