@@ -119,14 +119,14 @@ const removeProduct = async (req, res) => {
     try {
         const { id } = req.params;
         if (!id) {
-           return res.status(400).json({success:false ,message:"Product Id is required!"}) 
+            return res.status(400).json({ success: false, message: "Product Id is required!" })
         }
         const deletedProduct = await ProductModel.findByIdAndDelete(id);
         if (!deletedProduct) {
             return res.status(404).json({ success: false, message: "Product not found." });
         }
 
-       return res.status(200).json({ success: true, message: "Product removed successfully." });
+        return res.status(200).json({ success: true, message: "Product removed successfully." });
     } catch (error) {
         console.error("Error removing product:", error);
         res.status(500).json({ success: false, message: "Internal Server Error." });
@@ -134,7 +134,24 @@ const removeProduct = async (req, res) => {
 }
 
 const singleProduct = async (req, res) => {
-    res.json({ msg: "single product API Working" });
+
+    try {
+        const { id } = req.params
+        if (!id) {
+
+            return res.status(404).json({ success: false, message: "Id not found." });
+        }
+        const singleProduct = await ProductModel.findById(id)
+        if (!singleProduct) {
+            return res.status(404).json({ success: false, message: "Product not found." });
+        }
+        res.status(200).json({ success: true, message: "Product found successfully!",singleProduct });
+
+
+    } catch (error) {
+        console.error("Error removing product:", error);
+        res.status(500).json({ success: false, message: "Internal Server Error." });
+    }
 }
 
 export { addProduct, listProduct, removeProduct, singleProduct }
