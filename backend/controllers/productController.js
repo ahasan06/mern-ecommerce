@@ -43,7 +43,7 @@ const addProduct = async (req, res) => {
         const newProduct = new ProductModel({
             name,
             description,
-            price : Number(price),
+            price: Number(price),
             category,
             subCategory,
             bestSeller: bestSeller === 'true',
@@ -69,7 +69,50 @@ const addProduct = async (req, res) => {
     }
 }
 const listProduct = async (req, res) => {
-    res.json({ msg: "list product API Working" });
+
+    try {
+        const { category, subCategory, minPrice, maxPrice, bestSeller, page = 1, limit = 10, sort } = req.query;
+
+        let query = {}
+        if (category) {
+            query.category = category
+        }
+        if (subCategory) {
+            query.subCategory = subCategory
+        }
+        if (minPrice || maxPrice) {
+            query.price = {};
+            if (minPrice) {
+                query.price.$gte = Number(minPrice)
+            }
+            if (maxPrice) {
+                query.price.$lte = Number(maxPrice);
+            }
+        }
+        if (bestSeller) {
+            query.bestSeller = bestSeller === 'true';
+        }
+        // Pagination settings
+        const skip = (page - 1) * limit
+        const products = await ProductModel.find(query)
+            .sort(sort ? { price: sort === 'asc' ? 1 : -1 } : {})
+            .skip(skip)
+            .limit(Number(limit))
+
+        // Get total count for pagination metadata
+        const totalProducts = await ProductModel.countDocuments(query);
+        res.json({
+            success: true,
+            total: totalProducts,
+            page: Number(page),
+            limit: Number(limit),
+            products,
+        })
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        res.status(500).json({ success: false, message: "Failed to retrieve products" });
+    }
+
 }
 
 const removeProduct = async (req, res) => {
