@@ -21,8 +21,8 @@ productRoute.post(
     addProduct
 )
 
-productRoute.post('/remove', removeProduct);
-productRoute.post('/single', singleProduct);
+productRoute.post('/remove/:id', removeProduct);
+productRoute.post('/single/:id', singleProduct);
 productRoute.get('/list', listProduct);
 
 export default productRoute

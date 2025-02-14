@@ -116,7 +116,21 @@ const listProduct = async (req, res) => {
 }
 
 const removeProduct = async (req, res) => {
-    res.json({ msg: "remove product API Working" });
+    try {
+        const { id } = req.params;
+        if (!id) {
+           return res.status(400).json({success:false ,message:"Product Id is required!"}) 
+        }
+        const deletedProduct = await ProductModel.findByIdAndDelete(id);
+        if (!deletedProduct) {
+            return res.status(404).json({ success: false, message: "Product not found." });
+        }
+
+       return res.status(200).json({ success: true, message: "Product removed successfully." });
+    } catch (error) {
+        console.error("Error removing product:", error);
+        res.status(500).json({ success: false, message: "Internal Server Error." });
+    }
 }
 
 const singleProduct = async (req, res) => {
